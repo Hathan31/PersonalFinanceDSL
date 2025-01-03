@@ -1,0 +1,235 @@
+// finance_dsl.tx - Grammar for defining personal finance rules
+
+Model:
+    elements*=Element
+;
+
+Element:
+    InitializationRule | WindowEnableRule | IncomeFieldCustomization | ExpenseFieldCustomization | ButtonCustomization | IncomeDisplayCustomization | ExpenseDisplayCustomization | IncomeCategoryRule | FrequencyCategoryRule
+;
+
+// Initialization of the runtime
+InitializationRule:
+    'initialize_runtime' '=' status=YES_NO
+;
+
+// Enabling windows with restricted values
+WindowEnableRule:
+    'enable_window' '=' window=AllowedWindows
+;
+
+AllowedWindows:
+    'incomes' | 'expenses' | 'budget' | 'goals'
+;
+
+// Income field customizations
+IncomeFieldCustomization:
+    IncomeSourceNameCustomization |
+    IncomeCategoryCustomization |
+    IncomeFrequencyCustomization |
+    IncomeStartDateCustomization |
+    IncomeEndDateCustomization |
+    IncomeAmountCustomization
+;
+
+IncomeSourceNameCustomization:
+    'income_source_name' '{'
+        'visible' '=' visible=YES_NO
+        'required' '=' required=YES_NO
+    '}'
+;
+
+IncomeCategoryCustomization:
+    'income_category' '{'
+        'visible' '=' visible=YES_NO
+        'required' '=' required=YES_NO
+    '}'
+;
+
+IncomeFrequencyCustomization:
+    'income_frequency' '{'
+        'visible' '=' visible=YES_NO
+        'required' '=' required=YES_NO
+    '}'
+;
+
+IncomeStartDateCustomization:
+    'income_start_date' '{'
+        'visible' '=' visible=YES_NO
+        'required' '=' required=YES_NO
+    '}'
+;
+
+IncomeEndDateCustomization:
+    'income_end_date' '{'
+        'visible' '=' visible=YES_NO
+        'required' '=' required=YES_NO
+    '}'
+;
+
+IncomeAmountCustomization:
+    'income_amount' '{'
+        'visible' '=' visible=YES_NO
+        'required' '=' required=YES_NO
+    '}'
+;
+
+// Expense field customizations
+ExpenseFieldCustomization:
+    ExpenseSourceNameCustomization |
+    ExpenseCategoryCustomization |
+    ExpenseAmountCustomization |
+    ExpenseDateCustomization |
+    ExpensePaymentMethodCustomization |
+    ExpenseNotesCustomization
+;
+
+ExpenseSourceNameCustomization:
+    'expense_source_name' '{'
+        'visible' '=' visible=YES_NO
+        'required' '=' required=YES_NO
+    '}'
+;
+
+ExpenseCategoryCustomization:
+    'expense_category' '{'
+        'visible' '=' visible=YES_NO
+        'required' '=' required=YES_NO
+    '}'
+;
+
+ExpenseAmountCustomization:
+    'expense_amount' '{'
+        'visible' '=' visible=YES_NO
+        'required' '=' required=YES_NO
+    '}'
+;
+
+ExpenseDateCustomization:
+    'expense_date' '{'
+        'visible' '=' visible=YES_NO
+        'required' '=' required=YES_NO
+    '}'
+;
+
+ExpensePaymentMethodCustomization:
+    'expense_payment_method' '{'
+        'visible' '=' visible=YES_NO
+        'required' '=' required=YES_NO
+    '}'
+;
+
+ExpenseNotesCustomization:
+    'expense_notes' '{'
+        'visible' '=' visible=YES_NO
+        'required' '=' required=YES_NO
+    '}'
+;
+
+// Button customization
+ButtonCustomization:
+    AddIncomeButtonCustomization |
+    EditIncomeButtonCustomization |
+    DeleteIncomeButtonCustomization |
+    AddExpenseButtonCustomization |
+    EditExpenseButtonCustomization |
+    DeleteExpenseButtonCustomization |
+    GenerateReportButtonCustomization
+;
+
+AddIncomeButtonCustomization:
+    'add_income_button' '{'
+        'visible' '=' visible=YES_NO
+        'text' '=' text=BUTTON_TEXT
+    '}'
+;
+
+EditIncomeButtonCustomization:
+    'edit_income_button' '{'
+        'visible' '=' visible=YES_NO
+        'text' '=' text=BUTTON_TEXT
+    '}'
+;
+
+DeleteIncomeButtonCustomization:
+    'delete_income_button' '{'
+        'visible' '=' visible=YES_NO
+        'text' '=' text=BUTTON_TEXT
+        ('confirm_message' '=' confirm_message=BUTTON_TEXT)?
+    '}'
+;
+
+AddExpenseButtonCustomization:
+    'add_expense_button' '{'
+        'visible' '=' visible=YES_NO
+        'text' '=' text=BUTTON_TEXT
+    '}'
+;
+
+EditExpenseButtonCustomization:
+    'edit_expense_button' '{'
+        'visible' '=' visible=YES_NO
+        'text' '=' text=BUTTON_TEXT
+    '}'
+;
+
+DeleteExpenseButtonCustomization:
+    'delete_expense_button' '{'
+        'visible' '=' visible=YES_NO
+        'text' '=' text=BUTTON_TEXT
+        ('confirm_message' '=' confirm_message=BUTTON_TEXT)?
+    '}'
+;
+
+GenerateReportButtonCustomization:
+    'generate_report_button' '{'
+        'visible' '=' visible=YES_NO
+        'text' '=' text=BUTTON_TEXT
+        'report_types' '=' '[' report_types+=ReportType[','] ']'
+    '}'
+;
+
+// Display customization for income and expense
+IncomeDisplayCustomization:
+    'income_display' '{'
+        'visible_fields' '=' '[' visible_fields+=DisplayField[','] ']'
+        'sort_by' '=' sort_by=DisplayField
+        'sort_order' '=' sort_order=SortOrder
+    '}'
+;
+
+ExpenseDisplayCustomization:
+    'expense_display' '{'
+        'visible_fields' '=' '[' visible_fields+=DisplayField[','] ']'
+        'sort_by' '=' sort_by=DisplayField
+        'sort_order' '=' sort_order=SortOrder
+    '}'
+;
+
+DisplayField:
+    'source_name' | 'category' | 'amount' | 'frequency' | 'start_date' | 'end_date'
+;
+
+SortOrder:
+    'asc' | 'desc'
+;
+
+// Category and frequency rules for income
+IncomeCategoryRule:
+    'income_category' '=' category=BUTTON_TEXT
+;
+
+FrequencyCategoryRule:
+    'income_frequency' '=' frequency=BUTTON_TEXT
+;
+
+// Report type definition
+ReportType:
+    'daily' | 'weekly' | 'monthly' | 'annual'
+;
+
+// Tokens
+STRING: /[A-Za-z0-9\s\-]+/;
+FLOAT: /[0-9]+(\.[0-9]+)?/;
+YES_NO: /yes|no/;
+BUTTON_TEXT: /"[^"]*"|[A-Za-z0-9\s\-]+/;

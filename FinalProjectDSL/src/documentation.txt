@@ -1,0 +1,430 @@
+Welcome to the Personal Finance DSL IDE.
+
+This IDE allows the Domain Expert to configure and customize a personal finance management runtime environment. The runtime consists of the following main sections:
+
+1. Incomes
+2. Expenses
+3. Budget
+4. Goals
+
+Each section can be customized through specific rules in this DSL. The configuration process requires initializing the runtime, enabling sections, and setting detailed customizations for each feature. Follow the instructions below to get started.
+
+---
+
+### Step 1: Initialize the Runtime
+
+To create a functional runtime environment, you must first initialize it. Without this initialization, the runtime cannot be executed.
+
+**Syntax**:
+initialize_runtime = yes
+
+**Example**:
+initialize_runtime = yes
+
+---
+
+### Step 2: Enable Windows in the Runtime
+
+You need to enable each of the main sections (Incomes, Expenses, Budget, Goals) individually. Only the enabled sections will appear in the runtime.
+
+**Syntax**:
+enable_window = <window_name>
+
+**Allowed Window Names**:
+- incomes: Enables the Incomes section.
+- expenses: Enables the Expenses section.
+- budget: Enables the Budget section.
+- goals: Enables the Goals section.
+
+**Examples**:
+enable_window = incomes
+enable_window = expenses
+enable_window = budget
+enable_window = goals
+
+---
+
+### Step 3: Customize the Incomes Section
+
+The Incomes section includes various fields that can be configured for visibility and requirement status. Use the following rules to customize each field in this section.
+
+#### a. Income Source Name
+
+**Syntax**:
+income_source_name {
+    visible = <yes/no>
+    required = <yes/no>
+}
+
+**Example**:
+income_source_name {
+    visible = yes
+    required = yes
+}
+
+#### b. Income Category
+
+**Syntax**:
+income_category {
+    visible = <yes/no>
+    required = <yes/no>
+}
+
+**Example**:
+income_category {
+    visible = yes
+    required = yes
+}
+
+#### c. Income Frequency
+
+**Syntax**:
+income_frequency {
+    visible = <yes/no>
+    required = <yes/no>
+}
+
+**Example**:
+income_frequency {
+    visible = yes
+    required = yes
+}
+
+#### d. Income Start Date
+
+**Syntax**:
+income_start_date {
+    visible = <yes/no>
+    required = <yes/no>
+}
+
+**Example**:
+income_start_date {
+    visible = yes
+    required = yes
+}
+
+#### e. Income End Date
+
+**Syntax**:
+income_end_date {
+    visible = <yes/no>
+    required = <yes/no>
+}
+
+**Example**:
+income_end_date {
+    visible = yes
+    required = no
+}
+
+#### f. Income Amount
+
+**Syntax**:
+income_amount {
+    visible = <yes/no>
+    required = <yes/no>
+}
+
+**Example**:
+income_amount {
+    visible = yes
+    required = yes
+}
+
+---
+
+### Step 4: Customize Buttons in the Incomes Section
+
+The Incomes section includes several buttons that can be customized. This includes setting visibility, text, and other options as specified below.
+
+#### a. Add Income Button
+
+**Syntax**:
+add_income_button {
+    visible = <yes/no>
+    text = <button_text>
+}
+
+**Example**:
+add_income_button {
+    visible = yes
+    text = Add New Income
+}
+
+#### b. Edit Income Button
+
+**Syntax**:
+edit_income_button {
+    visible = <yes/no>
+    text = <button_text>
+}
+
+**Example**:
+edit_income_button {
+    visible = yes
+    text = Modify Income
+}
+
+#### c. Delete Income Button
+
+The delete button also includes an optional confirmation message for user safety.
+
+**Syntax**:
+delete_income_button {
+    visible = <yes/no>
+    text = <button_text>
+    confirm_message = <confirmation_message>
+}
+
+**Example**:
+delete_income_button {
+    visible = yes
+    text = Remove Income
+    confirm_message = Are you sure you want to delete this income?
+}
+
+#### d. Generate Report Button
+
+You can define the types of reports available (daily, weekly, monthly, annual) for income tracking.
+
+**Syntax**:
+generate_report_button {
+    visible = <yes/no>
+    text = <button_text>
+    report_types = [<type1>, <type2>, ...]
+}
+
+**Example**:
+generate_report_button {
+    visible = yes
+    text = Generate Income Report
+    report_types = [daily, monthly, annual]
+}
+
+---
+
+### Step 5: Customize Income Display
+
+Define how the list of incomes is displayed in the runtime, including which fields are visible and the sort order.
+
+**Syntax**:
+income_display {
+    visible_fields = [<field1>, <field2>, ...]
+    sort_by = <field_name>
+    sort_order = <asc/desc>
+}
+
+**Allowed Fields for visible_fields**:
+- source_name
+- category
+- amount
+- frequency
+- start_date
+- end_date
+
+**Example**:
+income_display {
+    visible_fields = [source_name, category, amount]
+    sort_by = start_date
+    sort_order = desc
+}
+
+---
+
+### Step 6: Customize the Expenses Section
+
+The Expenses section includes various fields and buttons that can be configured similarly to the Incomes section.
+
+#### a. Expense Name
+
+**Syntax**:
+expense_name {
+    visible = <yes/no>
+    required = <yes/no>
+}
+
+**Example**:
+expense_name {
+    visible = yes
+    required = yes
+}
+
+#### b. Expense Category
+
+**Syntax**:
+expense_category {
+    visible = <yes/no>
+    required = <yes/no>
+}
+
+**Example**:
+expense_category {
+    visible = yes
+    required = yes
+}
+
+#### c. Expense Amount
+
+**Syntax**:
+expense_amount {
+    visible = <yes/no>
+    required = <yes/no>
+}
+
+**Example**:
+expense_amount {
+    visible = yes
+    required = yes
+}
+
+#### d. Expense Date
+
+**Syntax**:
+expense_date {
+    visible = <yes/no>
+    required = <yes/no>
+}
+
+**Example**:
+expense_date {
+    visible = yes
+    required = yes
+}
+
+---
+
+### Step 7: Customize Buttons in the Expenses Section
+
+#### a. Add Expense Button
+
+**Syntax**:
+add_expense_button {
+    visible = <yes/no>
+    text = <button_text>
+}
+
+**Example**:
+add_expense_button {
+    visible = yes
+    text = Add New Expense
+}
+
+#### b. Edit Expense Button
+
+**Syntax**:
+edit_expense_button {
+    visible = <yes/no>
+    text = <button_text>
+}
+
+**Example**:
+edit_expense_button {
+    visible = yes
+    text = Modify Expense
+}
+
+#### c. Delete Expense Button
+
+**Syntax**:
+delete_expense_button {
+    visible = <yes/no>
+    text = <button_text>
+}
+
+**Example**:
+delete_expense_button {
+    visible = yes
+    text = Remove Expense
+}
+
+---
+
+### Step 8: Customize the Budget Section
+
+#### a. Budget Link Income
+
+**Syntax**:
+budget_link_income {
+    multiple_selection = <yes/no>
+    required = <yes/no>
+}
+
+**Example**:
+budget_link_income {
+    multiple_selection = yes
+    required = yes
+}
+
+#### b. Budget Link Expense
+
+**Syntax**:
+budget_link_expense {
+    multiple_selection = <yes/no>
+    required = <yes/no>
+}
+
+**Example**:
+budget_link_expense {
+    multiple_selection = yes
+    required = yes
+}
+
+#### c. Budget Remainder Recommendations
+
+**Syntax**:
+budget_remainder_recommendations {
+    savings_percentage = <percentage>
+    unnecessary_percentage = <percentage>
+    investments_percentage = <percentage>
+}
+
+**Example**:
+budget_remainder_recommendations {
+    savings_percentage = 20
+    unnecessary_percentage = 10
+    investments_percentage = 15
+}
+
+#### d. Customize Budget Buttons
+
+**Syntax**:
+budget_buttons {
+    create_budget_button {
+        visible = <yes/no>
+        text = <button_text>
+    }
+    calculate_budget_button {
+        visible = <yes/no>
+        text = <button_text>
+    }
+    save_budget_button {
+        visible = <yes/no>
+        text = <button_text>
+    }
+}
+
+**Example**:
+budget_buttons {
+    create_budget_button {
+        visible = yes
+        text = Create Budget
+    }
+    calculate_budget_button {
+        visible = yes
+        text = Calculate Budget
+    }
+    save_budget_button {
+        visible = yes
+        text = Save Budget
+    }
+}
+
+---
+
+### Summary
+
+Follow these steps to set up and customize the runtime to suit your requirements. Make sure each rule is defined correctly and that you have initialized and enabled the necessary windows to ensure a functional runtime environment.
+
+For further assistance or examples, refer to each section above.
+"""
